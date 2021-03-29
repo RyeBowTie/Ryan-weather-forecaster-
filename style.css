@@ -1,0 +1,23 @@
+header {
+    text-align: center;
+    padding: 2rem;;
+}
+
+div {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    
+}
+
+input {
+    margin: 3rem;
+}
+
+button {
+    background-color: blue;
+    color: cornsilk;
+    padding: 2rem;
+}
