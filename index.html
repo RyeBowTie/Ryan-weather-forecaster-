@@ -14,36 +14,43 @@
     <header>
         <h1>Weather Forecast</h1>
     </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
-                <label>Enter City</label>
-                <input type="text" id="city">
-                <button type="submit" id="submit">Submit</button>
+    <main>
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <div class="card">
+            <div class="card-body">
+          
             </div>
-        </div> 
-    </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <label>Enter City</label>
+            <input type="text" id="city">
+            <button type="submit" id="submit">Submit</button>
+        </div>    
+        <div class="col-sm-12 col-md-3">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <h5 class="date"></h5>
               <h5 class="temperature"></h5>
-              <h5 class="conditions"></h5>
+              <img class="conditions"></img>
               <h5 class="humidity"></h5>
               <h5 class="windSpeed"></h5>
               <h5 class="uvIndex"></h5>
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+      </div>
+    
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-2">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <h5 class="date"></h5>
               <h5 class="temperature"></h5>
-              <h5 class="conditions"></h5>
+              <img class="conditions"></img>
               <h5 class="humidity"></h5>
               <h5 class="windSpeed"></h5>
               <h5 class="uvIndex"></h5>
@@ -51,26 +58,13 @@
           </div>
         </div>
  
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+        <div class="col-sm-12 col-md-6 col-lg-2">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <h5 class="date"></h5>
               <h5 class="temperature"></h5>
-              <h5 class="conditions"></h5>
-              <h5 class="humidity"></h5>
-              <h5 class="windSpeed"></h5>
-              <h5 class="uvIndex"></h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
-              <h5 class="date"></h5>
-              <h5 class="temperature"></h5>
-              <h5 class="conditions"></h5>
+              <img class="conditions"></img>
               <h5 class="humidity"></h5>
               <h5 class="windSpeed"></h5>
               <h5 class="uvIndex"></h5>
@@ -78,13 +72,27 @@
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+        <div class="col-sm-12 col-md-6 col-lg-2">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
               <h5 class="date"></h5>
               <h5 class="temperature"></h5>
-              <h5 class="conditions"></h5>
+              <img class="conditions"></img>
+              <h5 class="humidity"></h5>
+              <h5 class="windSpeed"></h5>
+              <h5 class="uvIndex"></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <h5 class="date"></h5>
+              <h5 class="temperature"></h5>
+              <img class="conditions"></img>
               <h5 class="humidity"></h5>
               <h5 class="windSpeed"></h5>
               <h5 class="uvIndex"></h5>
@@ -93,7 +101,7 @@
         </div>
 
       </div>
-
+    </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
