@@ -1,23 +1,59 @@
+/* CSS HEX */
+:root {
+--pacific-blue: #23a6c2ff;
+--xiketic: #0d0221ff;
+--citrine: #e0ca3cff;
+--snow: #fffcffff;
+--blue-sapphire: #28536bff;
+}
+
+html {
+    box-sizing: border-box;
+}
 header {
     text-align: center;
-    padding: 2rem;;
+    padding: 5rem;
+    background-color: var(--blue-sapphire);
+    color: var(--citrine);
+    margin-bottom: 1rem;
+    height: 20vh;
+}
+
+main {
+    background-image: linear-gradient(var(--snow), var(--pacific-blue));
+    height: 75vh;
 }
 
 div {
     display: flex;
-    flex-flow: column;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
-    height: 50vh;
-    
+    height: auto;
+    width: auto;
 }
 
 input {
-    margin: 3rem;
+    margin: 3rem 0rem;
 }
 
 button {
-    background-color: blue;
-    color: cornsilk;
-    padding: 2rem;
+    background-color: var(--citrine);
+    color: var(--xiketic);
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.row {
+    margin: 2rem;
+    flex-flow: wrap;
+}
+
+.card {
+    display: none;
+    text-align: center;
+    background-color: var(--xiketic);
+    color: var(--snow);
+    border: 2px solid var(--citrine);
+    border-radius: 4rem;
 }
