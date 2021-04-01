@@ -1,5 +1,6 @@
 var city = $("#city");
 var submit = $("#submit");
+var card = $(".card")
 var cardTitle = $(".card-title");
 var temperature = $(".temperature");
 var dateTime = $(".date");
@@ -9,11 +10,12 @@ var wind = $(".windSpeed");
 var uv = $(".uvIndex");
 
 submit.on("click", function () {
+    card.css("display", "flex");
+    
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city.val() + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96"
     
     fetch(requestUrl) 
-    .then (function (response) {
-        
+    .then (function (response) {  
         return response.json();
     })
     .then(function (data) {
@@ -32,16 +34,13 @@ submit.on("click", function () {
             var dateSplit = data.list[i].dt_txt.split(" "); 
             date.push(dateSplit[0]);
             
-            conditions.push(data.list[i].weather[0].main);
+            conditions.push(data.list[i].weather[0].icon);
             
             humidity.push(data.list[i].main.humidity);
 
             windSpeed.push(data.list[i].wind.speed);
         };
-        
-        console.log(conditions)
-
-        
+                
         cardTitle.each(function (index, ele) {
             cardTitle.text(data.city.name); 
         });
@@ -51,11 +50,11 @@ submit.on("click", function () {
         });
 
         temperature.each(function (index, ele) {
-            $(ele).text(`Temp: ${dailyTemp[index]}`);
+            $(ele).text(`Temp: ${dailyTemp[index]}°C`);
         });
 
         weather.each(function (index, ele) {
-            $(ele).text(conditions[index]);
+            $(ele).attr("src", "http://openweathermap.org/img/wn/" + conditions[index] +"@2x.png")
         });
 
         humid.each(function (index, ele) {
