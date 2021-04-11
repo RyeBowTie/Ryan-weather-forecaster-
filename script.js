@@ -8,9 +8,12 @@ var weather = $(".conditions");
 var humid = $(".humidity");
 var wind = $(".windSpeed");
 var uv = $(".uvIndex");
+var list = $(".list");
+
+var pastSearches = [];
 
 submit.on("click", function () {
-    card.css("display", "flex");
+
     
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city.val() + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96"
     
@@ -28,18 +31,26 @@ submit.on("click", function () {
         var windSpeed = [];
         var uvIndex = [];
 
-        for (var i = 0; i <data.list.length; i+= 8) {
-            dailyTemp.push(data.list[i].main.temp);
-            
-            var dateSplit = data.list[i].dt_txt.split(" "); 
-            date.push(dateSplit[0]);
-            
-            conditions.push(data.list[i].weather[0].icon);
-            
-            humidity.push(data.list[i].main.humidity);
+        if (data.cod === "200") {
+            pastSearches.push(city.val());
+            localStorage.setItem("searches", pastSearches);
+            card.css("display", "flex");
 
-            windSpeed.push(data.list[i].wind.speed);
-        };
+            for (var i = 0; i <data.list.length; i+= 8) {
+                dailyTemp.push(data.list[i].main.temp);
+            
+                var dateSplit = data.list[i].dt_txt.split(" "); 
+                date.push(dateSplit[0]);
+            
+                conditions.push(data.list[i].weather[0].icon);
+            
+                humidity.push(data.list[i].main.humidity);
+
+                windSpeed.push(data.list[i].wind.speed);
+            };
+        } else {
+            confirm("City not recognized");
+        }
                 
         cardTitle.each(function (index, ele) {
             cardTitle.text(data.city.name); 
@@ -68,3 +79,16 @@ submit.on("click", function () {
 })    
 
 
+if (localStorage.length > 0) {
+    var searchList = localStorage.getItem("searches");
+    var searchListArr = searchList.split(",")
+    console.log(searchListArr)
+    for (var i = 0; i <searchListArr.length; i++) {
+        pastSearches.push(searchListArr[i])
+        var button = $("<button>");
+        button.attr("value", searchListArr[i])
+        button.text(searchListArr[i])
+        list.append(button);   
+    }
+    console.log(list)
+}
