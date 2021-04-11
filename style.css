@@ -13,14 +13,18 @@ html {
 header {
     text-align: center;
     padding: 5rem;
-    background-color: var(--blue-sapphire);
+    background-color: var(--pacific-blue);
     color: var(--citrine);
-    margin-bottom: 1rem;
-    height: 20vh;
+    /* margin-bottom: 1rem; */
+    height: auto;
+}
+
+h1 {
+    padding-bottom: 4rem ;
 }
 
 main {
-    background-image: linear-gradient(var(--snow), var(--pacific-blue));
+    background-image: linear-gradient(var(--pacific-blue), var(--snow));
     height: 75vh;
 }
 
@@ -35,6 +39,7 @@ div {
 
 input {
     margin: 3rem 0rem;
+    text-align: center;
 }
 
 button {
@@ -42,11 +47,12 @@ button {
     color: var(--xiketic);
     padding: 1rem;
     font-size: 1.5rem;
+    border-radius: 3rem;
 }
 
 .row {
-    margin: 2rem;
-    flex-flow: wrap;
+    margin-bottom: 2rem;
+    flex-flow: row wrap;
 }
 
 .card {
@@ -56,4 +62,14 @@ button {
     color: var(--snow);
     border: 2px solid var(--citrine);
     border-radius: 4rem;
+    margin: 1rem;
+}
+
+.input {
+    border: .2rem solid var(--blue-sapphire);
+    padding: 1rem 0rem;
+}
+
+.input label {
+    font-size: 2rem;
 }
