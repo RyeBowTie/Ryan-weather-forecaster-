@@ -10,16 +10,20 @@ var wind = $(".windSpeed");
 var indexUv = $(".uvIndex");
 var list = $(".list");
 
+
 var pastSearches = [];
+
 
 if (localStorage.length > 0) {
     getStorage(localStorage);
 };
 
+
 submit.on("click", getWeather); 
 
+
 function getStorage (localStorage) {
-  
+    
     var searchList = localStorage.getItem("searches").split(",");
     for (var i = 0; i <searchList.length; i++) {
         createButton(searchList[i]);
@@ -28,7 +32,9 @@ function getStorage (localStorage) {
           
 };
 
+
 function createButton (city) {
+    
     var button = $("<button>");
     button.val(city);
     button.text(city);
@@ -36,9 +42,10 @@ function createButton (city) {
     list.append(button);
 };
 
+
 function uvIndex(coord) {
     
-    var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coord[0].lat + "&lon=" + coord[0].lon + "&exclude=minutely,hourly,daily,alerts&appid=4f071de0ce28a47df5c272c2ae6d1d96";
+    var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coord.lat + "&lon=" + coord.lon + "&exclude=minutely,hourly,daily,alerts&appid=4f071de0ce28a47df5c272c2ae6d1d96";
 
     fetch(uvUrl)
     .then (function (response) {
@@ -49,6 +56,7 @@ function uvIndex(coord) {
         indexUv.text(uv)
         indexUv.css("color", "black")
         indexUv.css("padding", "5px");
+        
         if (uv > 8) {
             indexUv.css("backgroundColor", "red")
         } else if(uv > 6) {
@@ -61,31 +69,32 @@ function uvIndex(coord) {
     });
 };
 
+
 function getWeather (event) {
-    event.preventDefault()
+    event.preventDefault();
     city.text(" ");
 
     if (city.val()) {
         var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city.val() + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96";
     };    
+    
     if (event.target.value) {
         var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + event.target.value + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96"; 
         city.val(" "); 
     }; 
+    
     fetch(requestUrl) 
     .then (function (response) {  
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
-      
+        
         var date = [];
         var dailyTemp = [];
         var conditions = [];
         var humidity = [];
         var windSpeed = [];
-        var coord = [];
-        
+         
         if (data.cod === "200") {
             
             if (city.val() !== " ") {
@@ -95,8 +104,10 @@ function getWeather (event) {
             };
 
             card.css("display", "flex");
-            coord.push(data.city.coord);
-            uvIndex(coord)
+            
+            var coord = data.city.coord;
+            uvIndex(coord);
+            
             for (var i = 0; i <data.list.length; i+= 8) {
                 dailyTemp.push(data.list[i].main.temp);            
                 var dateSplit = data.list[i].dt_txt.split(" "); 
@@ -132,6 +143,6 @@ function getWeather (event) {
 
         wind.each(function (index, ele) {
             $(ele).text(`Wind Speed: ${windSpeed[index]}km/h`);
-        })
-    })
+        });
+    });
 };    
