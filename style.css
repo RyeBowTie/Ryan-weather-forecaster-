@@ -1,4 +1,4 @@
-/* CSS HEX */
+
 :root {
 --pacific-blue: #23a6c2ff;
 --xiketic: #0d0221ff;
@@ -12,10 +12,10 @@ html {
 }
 header {
     text-align: center;
-    padding: 5rem;
+    padding: 2rem;
     background-color: var(--pacific-blue);
     color: var(--citrine);
-    /* margin-bottom: 1rem; */
+    
     height: auto;
 }
 
@@ -25,7 +25,7 @@ h1 {
 
 main {
     background-image: linear-gradient(var(--pacific-blue), var(--snow));
-    height: 75vh;
+    height: auto;
 }
 
 div {
@@ -39,7 +39,7 @@ div {
 
 input {
     margin: 3rem 0rem;
-    text-align: center;
+    text-align: center;  
 }
 
 button {
@@ -48,20 +48,20 @@ button {
     padding: 1rem;
     font-size: 1.5rem;
     border-radius: 3rem;
+    margin-bottom: 1rem;
 }
 
 .row {
-    margin-bottom: 2rem;
     flex-flow: row wrap;
 }
 
 .card {
     display: none;
     text-align: center;
-    background-color: var(--xiketic);
+    background-color: var(--blue-sapphire);
     color: var(--snow);
     border: 2px solid var(--citrine);
-    border-radius: 4rem;
+    border-radius: 1rem;
     margin: 1rem;
 }
 
