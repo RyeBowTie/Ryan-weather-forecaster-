@@ -7,50 +7,108 @@ var dateTime = $(".date");
 var weather = $(".conditions");
 var humid = $(".humidity");
 var wind = $(".windSpeed");
-var uv = $(".uvIndex");
+var indexUv = $(".uvIndex");
 var list = $(".list");
 
 var pastSearches = [];
 
-submit.on("click", function () {
+if (localStorage.length > 0) {
+    getStorage(localStorage);
+};
 
+submit.on("click", getWeather); 
+
+function getStorage (localStorage) {
+  
+    var searchList = localStorage.getItem("searches").split(",");
+    for (var i = 0; i <searchList.length; i++) {
+        createButton(searchList[i]);
+    }
+    pastSearches.push(searchList);
+          
+};
+
+function createButton (city) {
+    var button = $("<button>");
+    button.val(city);
+    button.text(city);
+    button.on("click", getWeather);
+    list.append(button);
+};
+
+function uvIndex(coord) {
     
-    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city.val() + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96"
-    
+    var uvUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coord[0].lat + "&lon=" + coord[0].lon + "&exclude=minutely,hourly,daily,alerts&appid=4f071de0ce28a47df5c272c2ae6d1d96";
+
+    fetch(uvUrl)
+    .then (function (response) {
+        return response.json();
+    })
+    .then (function (data) {
+        uv = data.current.uvi;
+        indexUv.text(uv)
+        indexUv.css("color", "black")
+        indexUv.css("padding", "5px");
+        if (uv > 8) {
+            indexUv.css("backgroundColor", "red")
+        } else if(uv > 6) {
+            indexUv.css("backgroundColor", "orange")
+        } else if (uv > 3) {
+            indexUv.css("backgroundColor", "yellow")
+        } else {
+            indexUv.css("backgroundColor", "green")
+        };    
+    });
+};
+
+function getWeather (event) {
+    event.preventDefault()
+    city.text(" ");
+
+    if (city.val()) {
+        var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city.val() + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96";
+    };    
+    if (event.target.value) {
+        var requestUrl = "https://api.openweathermap.org/data/2.5/forecast/?q=" + event.target.value + "&mode=json&units=metric&appid=4f071de0ce28a47df5c272c2ae6d1d96"; 
+        city.val(" "); 
+    }; 
     fetch(requestUrl) 
     .then (function (response) {  
         return response.json();
     })
     .then(function (data) {
         console.log(data)
-        
+      
         var date = [];
         var dailyTemp = [];
         var conditions = [];
         var humidity = [];
         var windSpeed = [];
-        var uvIndex = [];
-
+        var coord = [];
+        
         if (data.cod === "200") {
-            pastSearches.push(city.val());
-            localStorage.setItem("searches", pastSearches);
-            card.css("display", "flex");
-
-            for (var i = 0; i <data.list.length; i+= 8) {
-                dailyTemp.push(data.list[i].main.temp);
             
+            if (city.val() !== " ") {
+                createButton(city.val());
+                pastSearches.push(city.val());
+                localStorage.setItem("searches", pastSearches); 
+            };
+
+            card.css("display", "flex");
+            coord.push(data.city.coord);
+            uvIndex(coord)
+            for (var i = 0; i <data.list.length; i+= 8) {
+                dailyTemp.push(data.list[i].main.temp);            
                 var dateSplit = data.list[i].dt_txt.split(" "); 
                 date.push(dateSplit[0]);
-            
                 conditions.push(data.list[i].weather[0].icon);
-            
                 humidity.push(data.list[i].main.humidity);
-
                 windSpeed.push(data.list[i].wind.speed);
             };
         } else {
             confirm("City not recognized");
-        }
+            return
+        };
                 
         cardTitle.each(function (index, ele) {
             cardTitle.text(data.city.name); 
@@ -76,19 +134,4 @@ submit.on("click", function () {
             $(ele).text(`Wind Speed: ${windSpeed[index]}km/h`);
         })
     })
-})    
-
-
-if (localStorage.length > 0) {
-    var searchList = localStorage.getItem("searches");
-    var searchListArr = searchList.split(",")
-    console.log(searchListArr)
-    for (var i = 0; i <searchListArr.length; i++) {
-        pastSearches.push(searchListArr[i])
-        var button = $("<button>");
-        button.attr("value", searchListArr[i])
-        button.text(searchListArr[i])
-        list.append(button);   
-    }
-    console.log(list)
-}
+};    
